@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Register({ setUser }) {
-  const [userName, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,7 +13,7 @@ function Register({ setUser }) {
     e.preventDefault();
     try {
       const { data } = await axios.post("/api/users/register", {
-        userName: userName,
+        username: username,
         email: email,
         password: password,
       });
@@ -44,7 +44,7 @@ function Register({ setUser }) {
           <input
             type="text"
             placeholder="Username"
-            value={userName}
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="w-full px-3 py-2 border rounded-md outline-none focus:ring-1 focus:ring-blue-400 shadow-lg"
             required
