@@ -1,0 +1,94 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+function Register({ setUser }) {
+  const [userName, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("/api/users/register", {
+        userName: userName,
+        email: email,
+        password: password,
+      });
+      const loginRes = await axios.post("/api/users/login", {
+        email: email,
+        password: password,
+      });
+      localStorage.setItem("token", loginRes.data.token);
+      setUser(loginRes.data);
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.msg || "Server error");
+    }
+  }
+
+  return (
+    <div className="container mx-auto bg-white max-w-md mt-10 p-6 rounded-lg shadow-2xl">
+      <h1 className="text-2xl font-semibold text-center mb-6">
+        Welcome to the Notes App!
+      </h1>
+      <h2 className="text-2xl font-semibold text-center mb-6">Register</h2>
+
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center justify-center flex-col gap-4"
+      >
+        <div>
+          <input
+            type="text"
+            placeholder="Username"
+            value={userName}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md outline-none focus:ring-1 focus:ring-blue-400 shadow-lg"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md outline-none focus:ring-1 focus:ring-blue-400 shadow-lg"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md outline-none focus:ring-1 focus:ring-blue-400 shadow-lg"
+            required
+          />
+        </div>
+        <button
+          className="  bg-blue-500 hover:bg-blue-600 transition-colors duration-500
+ text-white rounded-md text-center py-2 px-4 cursor-pointer"
+        >
+          Register
+        </button>
+      </form>
+      {error && <p className="text-red-500 mb-4 text-center mt-3">{error}</p>}
+      <p className="mt-4 text-center">
+        Already have an account?{" "}
+        <Link
+          to="/login"
+          className="text-blue-600 hover:underline hover:text-blue-900 transition-colors duration-500"
+        >
+          Login
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+export default Register;
