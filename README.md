@@ -2,7 +2,7 @@
 
 A simple full-stack Notes application (MERN-style) — React frontend + Express/MongoDB backend. This repository contains a Vite + React frontend in `frontend/` and an Express backend in `backend/`.
 
-This README explains how the project is organized, how to run it in development, how to build for production, environment variables, API endpoints, and some debugging tips.
+This README explains how the project is organized, how to run it in development, environment variables, API endpoints
 
 ## Features
 
