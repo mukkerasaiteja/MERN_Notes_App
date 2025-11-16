@@ -10,9 +10,9 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
-  console.log(username);
-  console.log(email);
-  console.log(password);
+  //console.log(username);
+  //console.log(email);
+  //console.log(password);
 
   // Validate input
   if (!username || !email || !password) {
