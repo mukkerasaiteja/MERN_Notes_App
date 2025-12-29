@@ -3,8 +3,7 @@ import morgan from "morgan";
 import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
 import { connectDB } from "./config/db.js";
-import { PORT } from "../config.js";
-import { NODE_ENV } from "../config.js";
+import { PORT, NODE_ENV } from "./config.js";
 import path from "path";
 
 const app = express();

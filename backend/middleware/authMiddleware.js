@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JWT_User_Secret } from "../../config.js";
+import { JWT_User_Secret } from "../config.js";
 import userModel from "../models/userModel.js";
 
 async function auth(req, res, next) {
