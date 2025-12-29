@@ -9,16 +9,13 @@ import path from "path";
 
 const app = express();
 
-// CORS configuration - allow Vercel frontend in production
 const allowedOrigins = [
+  "https://reactive-notes-app.vercel.app",
   "https://mernnotesapp-production.up.railway.app",
   /\.vercel\.app$/, // Allows all Vercel preview URLs
   "http://localhost:5173",
   "http://localhost:4173",
 ];
-
-// Add your custom Vercel domain here after deployment
-// Example: "https://your-app-name.vercel.app"
 
 app.use(
   cors({
