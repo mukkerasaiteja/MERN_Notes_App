@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
-import axios from "axios";
+import api from "./api/axios";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -17,7 +17,7 @@ function App() {
       try {
         const token = localStorage.getItem("token");
         if (!token) return;
-        const { data } = await axios.get("/api/users/me", {
+        const { data } = await api.get("/api/users/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         //alert("Hello" + data.user.username);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios";
 import { MdOutlineAddCircle } from "react-icons/md";
 import NoteModal from "./NoteModal";
 
@@ -25,7 +25,7 @@ function Home({ search = "" }) {
         navigate("/login");
         return;
       }
-      const { data } = await axios.get("/api/notes", {
+      const { data } = await api.get("/api/notes", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotes(data.notes);
@@ -49,7 +49,7 @@ function Home({ search = "" }) {
         return;
       }
 
-      await axios.delete(`/api/notes/${id}`, {
+      await api.delete(`/api/notes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -72,7 +72,7 @@ function Home({ search = "" }) {
       if (!token) return;
 
       if (payload._id) {
-        const { data } = await axios.put(
+        const { data } = await api.put(
           `/api/notes/${payload._id}`,
           { title: payload.title, description: payload.description },
           { headers: { Authorization: `Bearer ${token}` } }
@@ -82,7 +82,7 @@ function Home({ search = "" }) {
           prev.map((n) => (n._id === payload._id ? updated : n))
         );
       } else {
-        const { data } = await axios.post(
+        const { data } = await api.post(
           "/api/notes",
           { title: payload.title, description: payload.description },
           { headers: { Authorization: `Bearer ${token}` } }

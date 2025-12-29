@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
 import { connectDB } from "./config/db.js";
@@ -7,6 +8,24 @@ import { PORT, NODE_ENV } from "./config.js";
 import path from "path";
 
 const app = express();
+
+// CORS configuration - allow Vercel frontend in production
+const allowedOrigins = [
+  "https://mernnotesapp-production.up.railway.app",
+  /\.vercel\.app$/,  // Allows all Vercel preview URLs
+  "http://localhost:5173",
+  "http://localhost:4173"
+];
+
+// Add your custom Vercel domain here after deployment
+// Example: "https://your-app-name.vercel.app"
+
+app.use(cors({
+  origin: NODE_ENV === "production" 
+    ? allowedOrigins
+    : "*",
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(morgan("dev"));
