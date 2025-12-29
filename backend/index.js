@@ -40,5 +40,5 @@ if (NODE_ENV === "production") {
 }
 app.listen(PORT, async () => {
   await connectDB();
-  console.log(`🚀 Server listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
